@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تطوّع وهران — منصة الابتكار في العمل التطوعي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F4EE;
+    --card:#FFFFFF;
+    --forest:#1F5C42;
+    --forest-dark:#153F2E;
+    --forest-tint:#EAF1EC;
+    --gold:#C89B3C;
+    --gold-tint:#F7EDD9;
+    --ink:#1C2621;
+    --ink-soft:#5B6B61;
+    --line:#DBE2D6;
+    --danger:#B4432E;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Tajawal',sans-serif;
+    line-height:1.7;
+  }
+  h1,h2,h3,.brand,.stat-num{font-family:'Cairo',sans-serif;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+
+  /* Header */
+  header{background:var(--forest-dark);color:#fff;padding:22px 0 0;}
+  .header-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .brand{font-size:26px;font-weight:800;letter-spacing:.3px;}
+  .brand span{color:var(--gold);}
+  .brand-sub{font-size:13px;color:#C9DACF;margin-top:4px;}
+  nav{display:flex;gap:4px;margin-top:20px;overflow-x:auto;border-top:1px solid rgba(255,255,255,.12);}
+  nav button{
+    background:none;border:none;color:#C9DACF;font-family:'Tajawal';
+    font-size:15px;padding:14px 16px;cursor:pointer;white-space:nowrap;
+    border-bottom:3px solid transparent;transition:.15s;
+  }
+  nav button:hover{color:#fff;}
+  nav button.active{color:#fff;border-bottom-color:var(--gold);font-weight:700;}
+
+  main{padding:32px 0 80px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  /* Identity bar */
+  .idbar{
+    background:var(--forest-tint);border:1px solid var(--line);border-radius:10px;
+    padding:14px 18px;margin-bottom:26px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  }
+  .idbar label{font-size:13px;color:var(--ink-soft);display:block;margin-bottom:4px;}
+  .idbar input{
+    font-family:'Tajawal';font-size:15px;padding:8px 10px;border:1px solid var(--line);
+    border-radius:6px;background:#fff;min-width:150px;
+  }
+  .idbar .idnote{font-size:12.5px;color:var(--ink-soft);margin-inline-start:auto;}
+
+  /* Hero */
+  .hero h1{font-size:30px;margin:0 0 8px;line-height:1.4;}
+  .hero p.lede{font-size:16px;color:var(--ink-soft);max-width:60ch;margin:0 0 28px;}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:34px;}
+  .stat-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 16px;text-align:center;}
+  .stat-num{font-size:34px;font-weight:800;color:var(--forest);}
+  .stat-label{font-size:13.5px;color:var(--ink-soft);margin-top:4px;}
+
+  .slogan-block{
+    border-inline-start:4px solid var(--gold);background:var(--gold-tint);
+    padding:16px 20px;border-radius:6px;font-size:15px;color:#5C4A1E;margin-bottom:8px;
+  }
+
+  section.block{margin-bottom:36px;}
+  section.block h2{font-size:20px;margin:0 0 14px;}
+
+  /* Cards */
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:18px 20px;margin-bottom:12px;
+  }
+  .card h3{font-size:17px;margin:0 0 4px;}
+  .card .meta{font-size:13.5px;color:var(--ink-soft);margin-bottom:10px;}
+  .card .meta span{margin-inline-end:14px;}
+  .card p{font-size:14.5px;margin:0 0 12px;color:#3A453E;}
+  .card-foot{display:flex;justify-content:space-between;align-items:center;}
+  .tag{
+    display:inline-block;background:var(--forest-tint);color:var(--forest);
+    font-size:12.5px;padding:3px 10px;border-radius:20px;font-weight:700;
+  }
+
+  button.btn{
+    font-family:'Tajawal';font-weight:700;font-size:14.5px;
+    background:var(--forest);color:#fff;border:none;border-radius:7px;
+    padding:10px 18px;cursor:pointer;transition:.15s;
+  }
+  button.btn:hover{background:var(--forest-dark);}
+  button.btn.ghost{background:none;border:1px solid var(--forest);color:var(--forest);}
+  button.btn.ghost:hover{background:var(--forest-tint);}
+  button.btn:disabled{background:#B9C4BC;cursor:default;}
+  button.btn.gold{background:var(--gold);}
+  button.btn.gold:hover{background:#B08832;}
+
+  /* Forms */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .form-grid .full{grid-column:1/-1;}
+  .field label{display:block;font-size:13px;color:var(--ink-soft);margin-bottom:5px;}
+  .field input,.field select,.field textarea{
+    width:100%;font-family:'Tajawal';font-size:14.5px;padding:9px 11px;
+    border:1px solid var(--line);border-radius:7px;background:#fff;
+  }
+  .field textarea{resize:vertical;min-height:60px;}
+
+  /* Log table */
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  thead tr{background:var(--forest-tint);}
+  th,td{padding:11px 14px;text-align:right;font-size:14px;border-bottom:1px solid var(--line);}
+  tbody tr:last-child td{border-bottom:none;}
+  .empty{color:var(--ink-soft);font-size:14px;padding:20px;text-align:center;}
+
+  /* Certificate */
+  .cert{
+    background:var(--card);border:2px solid var(--forest);border-radius:14px;
+    padding:40px 34px;text-align:center;position:relative;margin-bottom:20px;
+  }
+  .cert::before,.cert::after{content:"";position:absolute;inset:8px;border:1px solid var(--gold);border-radius:8px;pointer-events:none;}
+  .cert .cert-kicker{font-size:13px;color:var(--ink-soft);letter-spacing:.5px;}
+  .cert h2{font-size:26px;color:var(--forest-dark);margin:6px 0 2px;}
+  .cert .cert-name{font-size:24px;font-weight:800;color:var(--gold);margin:14px 0 6px;font-family:'Cairo';}
+  .cert .cert-body{font-size:15px;color:#3A453E;max-width:52ch;margin:0 auto 20px;}
+  .badge-circle{
+    width:78px;height:78px;border-radius:50%;background:var(--forest);color:#fff;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
+    font-family:'Cairo';font-weight:800;font-size:13px;text-align:center;line-height:1.3;padding:6px;
+    border:3px solid var(--gold);
+  }
+  .cert-stats{display:flex;justify-content:center;gap:36px;margin-top:22px;}
+  .cert-stats div{text-align:center;}
+  .cert-stats .n{font-size:22px;font-weight:800;color:var(--forest);font-family:'Cairo';}
+  .cert-stats .l{font-size:12.5px;color:var(--ink-soft);}
+
+  /* Leaderboard */
+  .lb-row{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;}
+  .lb-rank{font-family:'Cairo';font-weight:800;font-size:16px;color:var(--forest);width:26px;}
+  .lb-rank.gold{color:var(--gold);}
+  .lb-name{flex:1;font-weight:700;}
+  .lb-muni{font-size:13px;color:var(--ink-soft);}
+  .lb-hours{font-family:'Cairo';font-weight:800;color:var(--forest);}
+
+  footer{background:var(--forest-dark);color:#C9DACF;text-align:center;padding:22px;font-size:13px;}
+  .msg{font-size:13.5px;padding:10px 14px;border-radius:7px;margin-bottom:14px;}
+  .msg.ok{background:var(--forest-tint);color:var(--forest-dark);}
+  .msg.err{background:#FBEAE6;color:var(--danger);}
+
+  @media(max-width:600px){
+    .stat-row{grid-template-columns:1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    .cert-stats{gap:20px;}
+  }
+  @media print{
+    header,nav,footer,.idbar,section:not(#certPrintArea){display:none!important;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="header-top">
+      <div>
+        <div class="brand">تطوّع <span>وهران</span></div>
+        <div class="brand-sub">مديرية الشباب والرياضة — ولاية وهران · مشروع الهاكثون الوطني للابتكار في العمل التطوعي</div>
+      </div>
+    </div>
+    <nav id="nav">
+      <button data-panel="home" class="active">الرئيسية</button>
+      <button data-panel="opps">الفرص التطوعية</button>
+      <button data-panel="log">سجل ساعاتي</button>
+      <button data-panel="cert">جواز التطوع</button>
+      <button data-panel="board">لوحة الشرف</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <div class="idbar">
+      <div class="field">
+        <label>اسمك</label>
+        <input id="idName" placeholder="مثال: أمين بلحاج">
+      </div>
+      <div class="field">
+        <label>البلدية</label>
+        <input id="idMuni" placeholder="مثال: وهران وسط">
+      </div>
+      <div class="idnote">يُستخدم اسمك لتسجيل الفرص والساعات وشهادتك — لا حاجة لكلمة مرور في هذه النسخة التجريبية.</div>
+    </div>
+
+    <div id="msgBox"></div>
+
+    <!-- HOME -->
+    <section class="panel active" id="panel-home">
+      <div class="hero">
+        <h1>مؤسسات الشباب... فضاءات للإبتكار والتطوع</h1>
+        <p class="lede">منصة رقمية تربط شباب ولاية وهران بفرص التطوع القريبة منهم، توثّق ساعاتهم تلقائياً، وتمنحهم "جواز تطوع" رقمي يمكن استخدامه في السيرة الذاتية أو ملفات المنح والتسجيل الجامعي.</p>
+      </div>
+
+      <div class="stat-row" id="statRow">
+        <div class="stat-card"><div class="stat-num" id="statVol">0</div><div class="stat-label">متطوع مسجّل</div></div>
+        <div class="stat-card"><div class="stat-num" id="statHours">0</div><div class="stat-label">ساعة تطوع موثّقة</div></div>
+        <div class="stat-card"><div class="stat-num" id="statOpps">5</div><div class="stat-label">مبادرة نشطة بوهران</div></div>
+      </div>
+
+      <div class="slogan-block">
+        <strong>كيف تعمل المنصة؟</strong> اكتب اسمك وبلديتك أعلاه ← اختر فرصة تطوعية من القائمة وانضم إليها ← سجّل ساعاتك بعد كل نشاط ← احصل على جواز تطوع رقمي وارتقِ في لوحة الشرف.
+      </div>
+    </section>
+
+    <!-- OPPORTUNITIES -->
+    <section class="panel" id="panel-opps">
+      <section class="block">
+        <h2>الفرص التطوعية المتاحة بولاية وهران</h2>
+        <div id="oppsList"></div>
+      </section>
+    </section>
+
+    <!-- LOG HOURS -->
+    <section class="panel" id="panel-log">
+      <section class="block">
+        <h2>سجّل ساعات تطوعك</h2>
+        <div class="card">
+          <div class="form-grid">
+            <div class="field">
+              <label>النشاط</label>
+              <select id="logActivity"></select>
+            </div>
+            <div class="field">
+              <label>عدد الساعات</label>
+              <input id="logHours" type="number" min="0.5" step="0.5" placeholder="مثال: 3">
+            </div>
+            <div class="field">
+              <label>التاريخ</label>
+              <input id="logDate" type="date">
+            </div>
+            <div class="field">
+              <label>ملاحظة (اختياري)</label>
+              <input id="logNote" placeholder="مثال: نظّفت الشاطئ مع 12 متطوعاً">
+            </div>
+          </div>
+          <button class="btn" id="logSubmit">تسجيل الساعات</button>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>سجلّي</h2>
+        <table>
+          <thead><tr><th>النشاط</th><th>الساعات</th><th>التاريخ</th><th>ملاحظة</th></tr></thead>
+          <tbody id="logTableBody"><tr><td colspan="4" class="empty">لا توجد ساعات مسجّلة بعد</td></tr></tbody>
+        </table>
+      </section>
+    </section>
+
+    <!-- CERTIFICATE -->
+    <section class="panel" id="panel-cert">
+      <section class="block" id="certPrintArea">
+        <h2>جواز التطوع الرقمي</h2>
+        <div class="cert" id="certBody">
+          <div class="cert-kicker">الجمهورية الجزائرية الديمقراطية الشعبية — مديرية الشباب والرياضة، ولاية وهران</div>
+          <h2>جواز التطوع</h2>
+          <div class="badge-circle" id="certBadge">—</div>
+          <div class="cert-name" id="certName">أدخل اسمك أعلاه</div>
+          <div class="cert-body">يشهد بأن المتطوع(ة) المذكور(ة) قد ساهم بجهده الشخصي في خدمة مجتمعه من خلال المبادرات التطوعية الموثّقة في هذه المنصة.</div>
+          <div class="cert-stats">
+            <div><div class="n" id="certHours">0</div><div class="l">ساعة تطوع</div></div>
+            <div><div class="n" id="certActs">0</div><div class="l">نشاط مكتمل</div></div>
+          </div>
+        </div>
+        <button class="btn gold" id="printCert">تحميل / طباعة الجواز</button>
+      </section>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section class="panel" id="panel-board">
+      <section class="block">
+        <h2>لوحة شرف المتطوعين</h2>
+        <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px;">هذه اللوحة مشتركة بين جميع مستخدمي هذه النسخة التجريبية من المنصة.</p>
+        <div id="boardList"></div>
+      </section>
+    </section>
+
+  </div>
+</main>
+
+<footer>منصة تجريبية — مشروع مقدَّم للتصفيات الولائية للهاكثون الوطني للابتكار في العمل التطوعي، وهران 2026</footer>
+
+<script>
+const STORAGE_KEY = 'tatawwu-data';
+let DATA = { volunteers: {}, logs: [] };
+
+const OPPORTUNITIES = [
+  { id:'o1', title:'تنظيف شاطئ عين الترك', muni:'عين الترك', date:'14 سبتمبر 2026', spots:30, desc:'حملة تنظيف جماعية للشاطئ بالتعاون مع جمعيات بيئية محلية، مع فرز النفايات القابلة لإعادة التدوير.' },
+  { id:'o2', title:'ورشة إعادة تدوير للأطفال', muni:'وهران وسط', date:'18 سبتمبر 2026', spots:15, desc:'إشراف على ورشة تعليمية لأطفال الحي حول تحويل النفايات المنزلية إلى ألعاب وأدوات بسيطة.' },
+  { id:'o3', title:'مرافقة كبار السن', muni:'بئر الجير', date:'20 سبتمبر 2026', spots:12, desc:'زيارات دورية لدار المسنين لتقديم الصحبة والمساعدة في الأنشطة الترفيهية اليومية.' },
+  { id:'o4', title:'رقمنة أرشيف جمعية محلية', muni:'السانيا', date:'22 سبتمبر 2026', spots:6, desc:'مساعدة جمعية محلية في تصوير وأرشفة وثائقها الورقية القديمة رقمياً.' },
+  { id:'o5', title:'حملة توعية بيئية بالأسواق', muni:'بطيوة', date:'25 سبتمبر 2026', spots:20, desc:'توزيع مطويات توعوية والتحدث مع التجار والزبائن حول تقليل استعمال الأكياس البلاستيكية.' },
+];
+
+const BADGES = [
+  { min:30, label:'بطل التطوع' },
+  { min:15, label:'سفير تطوّع' },
+  { min:5,  label:'متطوّع نشيط' },
+  { min:0,  label:'متطوّع مبتدئ' },
+];
+
+function todayStr(){ return new Date().toISOString().split('T')[0]; }
+function currentName(){ return document.getElementById('idName').value.trim(); }
+function currentMuni(){ return document.getElementById('idMuni').value.trim(); }
+function volKey(name){ return name.trim().toLowerCase(); }
+
+function showMsg(text, type){
+  const box = document.getElementById('msgBox');
+  box.innerHTML = `<div class="msg ${type}">${text}</div>`;
+  setTimeout(()=>{ box.innerHTML=''; }, 3500);
+}
+
+async function loadData(){
+  try{
+    const res = await window.storage.get(STORAGE_KEY, true);
+    if(res && res.value){ DATA = JSON.parse(res.value); }
+  }catch(e){ /* no data yet */ }
+  render();
+}
+
+async function saveData(){
+  try{
+    await window.storage.set(STORAGE_KEY, JSON.stringify(DATA), true);
+  }catch(e){
+    showMsg('تعذّر حفظ البيانات، حاول مجدداً.', 'err');
+  }
+}
+
+function ensureVolunteer(){
+  const name = currentName();
+  if(!name){ showMsg('من فضلك أدخل اسمك أولاً في الأعلى.', 'err'); return null; }
+  const key = volKey(name);
+  if(!DATA.volunteers[key]){
+    DATA.volunteers[key] = { name, muni: currentMuni() || 'غير محدد', joined: [], hours: 0, activities: 0 };
+  } else if(currentMuni()){
+    DATA.volunteers[key].muni = currentMuni();
+  }
+  return DATA.volunteers[key];
+}
+
+function joinOpportunity(oppId){
+  const v = ensureVolunteer();
+  if(!v) return;
+  const key = volKey(currentName());
+  if(!v.joined.includes(oppId)){
+    v.joined.push(oppId);
+    saveData().then(render);
+    showMsg('تم انضمامك إلى النشاط بنجاح. لا تنسَ تسجيل ساعاتك بعد المشاركة!', 'ok');
+  } else {
+    showMsg('أنت منضم بالفعل إلى هذا النشاط.', 'err');
+  }
+}
+
+function logHours(){
+  const v = ensureVolunteer();
+  if(!v) return;
+  const activitySel = document.getElementById('logActivity');
+  const activityId = activitySel.value;
+  const activityLabel = activitySel.options[activitySel.selectedIndex].text;
+  const hours = parseFloat(document.getElementById('logHours').value);
+  const date = document.getElementById('logDate').value || todayStr();
+  const note = document.getElementById('logNote').value.trim();
+
+  if(!hours || hours <= 0){
+    showMsg('من فضلك أدخل عدد ساعات صحيح.', 'err');
+    return;
+  }
+
+  const key = volKey(currentName());
+  DATA.logs.push({ volKey:key, name:v.name, activityId, activityLabel, hours, date, note });
+  v.hours = Math.round((v.hours + hours) * 100) / 100;
+  v.activities += 1;
+
+  document.getElementById('logHours').value = '';
+  document.getElementById('logNote').value = '';
+
+  saveData().then(render);
+  showMsg('تم تسجيل ساعاتك بنجاح. تحقق من جواز التطوع الخاص بك!', 'ok');
+}
+
+function getBadge(hours){
+  for(const b of BADGES){ if(hours >= b.min) return b.label; }
+  return BADGES[BADGES.length-1].label;
+}
+
+function render(){
+  renderStats();
+  renderOpps();
+  renderLogSelect();
+  renderLogTable();
+  renderCert();
+  renderBoard();
+}
+
+function renderStats(){
+  const vols = Object.values(DATA.volunteers);
+  const totalHours = vols.reduce((s,v)=>s+v.hours,0);
+  document.getElementById('statVol').textContent = vols.length;
+  document.getElementById('statHours').textContent = Math.round(totalHours*10)/10;
+}
+
+function renderOpps(){
+  const name = currentName();
+  const key = volKey(name);
+  const v = DATA.volunteers[key];
+  const list = document.getElementById('oppsList');
+  list.innerHTML = OPPORTUNITIES.map(o=>{
+    const joined = v && v.joined.includes(o.id);
+    return `
+      <div class="card">
+        <h3>${o.title}</h3>
+        <div class="meta"><span>📍 ${o.muni}</span><span>📅 ${o.date}</span><span>👥 ${o.spots} مكان</span></div>
+        <p>${o.desc}</p>
+        <div class="card-foot">
+          <span class="tag">${joined ? 'أنت منضم' : 'مفتوح للتسجيل'}</span>
+          <button class="btn ${joined?'ghost':''}" ${joined?'disabled':''} onclick="joinOpportunity('${o.id}')">${joined?'تم الانضمام':'انضم إلى النشاط'}</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderLogSelect(){
+  const sel = document.getElementById('logActivity');
+  const name = currentName();
+  const key = volKey(name);
+  const v = DATA.volunteers[key];
+  const joinedOpps = v ? OPPORTUNITIES.filter(o=>v.joined.includes(o.id)) : [];
+  const options = joinedOpps.map(o=>`<option value="${o.id}">${o.title}</option>`).join('');
+  sel.innerHTML = options + `<option value="other">نشاط آخر</option>`;
+  if(!document.getElementById('logDate').value){
+    document.getElementById('logDate').value = todayStr();
+  }
+}
+
+function renderLogTable(){
+  const name = currentName();
+  const key = volKey(name);
+  const rows = DATA.logs.filter(l=>l.volKey===key);
+  const tbody = document.getElementById('logTableBody');
+  if(!name){
+    tbody.innerHTML = `<tr><td colspan="4" class="empty">أدخل اسمك أعلاه لعرض سجلّك</td></tr>`;
+    return;
+  }
+  if(rows.length===0){
+    tbody.innerHTML = `<tr><td colspan="4" class="empty">لا توجد ساعات مسجّلة بعد</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.slice().reverse().map(r=>`
+    <tr><td>${r.activityLabel}</td><td>${r.hours}</td><td>${r.date}</td><td>${r.note||'—'}</td></tr>
+  `).join('');
+}
+
+function renderCert(){
+  const name = currentName();
+  const key = volKey(name);
+  const v = DATA.volunteers[key];
+  document.getElementById('certName').textContent = name || 'أدخل اسمك أعلاه';
+  document.getElementById('certHours').textContent = v ? v.hours : 0;
+  document.getElementById('certActs').textContent = v ? v.activities : 0;
+  document.getElementById('certBadge').textContent = v ? getBadge(v.hours) : '—';
+}
+
+function renderBoard(){
+  const vols = Object.values(DATA.volunteers).sort((a,b)=>b.hours-a.hours).slice(0,10);
+  const board = document.getElementById('boardList');
+  if(vols.length===0){
+    board.innerHTML = `<div class="empty">لا يوجد متطوعون مسجّلون بعد. كن أول من ينضم!</div>`;
+    return;
+  }
+  board.innerHTML = vols.map((v,i)=>`
+    <div class="lb-row">
+      <div class="lb-rank ${i===0?'gold':''}">${i+1}</div>
+      <div class="lb-name">${v.name}<div class="lb-muni">${v.muni}</div></div>
+      <div class="lb-hours">${v.hours} سا</div>
+    </div>
+  `).join('');
+}
+
+// Nav
+document.getElementById('nav').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+btn.dataset.panel).classList.add('active');
+  render();
+});
+
+document.getElementById('logSubmit').addEventListener('click', logHours);
+document.getElementById('printCert').addEventListener('click', ()=>window.print());
+document.getElementById('idName').addEventListener('change', render);
+document.getElementById('idMuni').addEventListener('change', render);
+
+loadData();
+</script>
+
+</body>
+</html>
